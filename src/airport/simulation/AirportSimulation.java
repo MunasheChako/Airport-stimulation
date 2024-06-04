@@ -31,13 +31,13 @@ public class AirportSimulation {
                 e.printStackTrace();
             }
 
-            // Example: Start the airplane
+            // Start the airplane
             for (Lane lane : airport.getLanes()) {
                 lane.startAirplane(airplane);
                 airplane.setStatus("Started on lane " + lane.hashCode());
             }
 
-            // Example: Land the airplane
+            //  Land the airplane
             for (Lane lane : airport.getLanes()) {
                 lane.landAirplane(airplane);
                 airplane.setStatus("Landed on lane " + lane.hashCode());

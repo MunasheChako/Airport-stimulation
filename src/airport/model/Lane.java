@@ -1,35 +1,62 @@
 package src.airport.model;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 public class Lane {
-    private Lock lock = new ReentrantLock();
+    private final int id;
     private Airplane currentAirplane;
 
-    public void startAirplane(Airplane airplane) {
-        lock.lock();
-        try {
-            // Check if the lane is available
-            if (currentAirplane == null) {
-                currentAirplane = airplane;
-                System.out.println("Aircraft " + airplane.getId() + " started on lane.");
-            }
-        } finally {
-            lock.unlock();
+    public Lane(int id) {
+        this.id = id;
+        this.currentAirplane = null;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public Airplane getCurrentAirplane() {
+        return currentAirplane;
+    }
+
+    public synchronized boolean isOccupied() {
+        return currentAirplane != null;
+    }
+
+    public synchronized void assignAirplane(Airplane airplane) {
+        if (airplane == null) {
+            throw new IllegalArgumentException("Airplane cannot be null");
+        }
+        this.currentAirplane = airplane;
+        airplane.setStatus("Assigned to Lane " + id);
+        System.out.println("Airplane with ID " + airplane.getId() + " assigned to Lane " + id);
+    }
+
+    public synchronized void releaseAirplane() {
+        if (currentAirplane != null) {
+            currentAirplane.setStatus("Released from Lane " + id);
+            System.out.println("Airplane with ID " + currentAirplane.getId() + " released from Lane " + id);
+            this.currentAirplane = null;
+        } else {
+            System.out.println("No airplane currently assigned to Lane " + id);
         }
     }
 
-    public void landAirplane(Airplane airplane) {
-        lock.lock();
-        try {
-            // Check if the lane is available
-            if (currentAirplane == null) {
-                currentAirplane = airplane;
-                System.out.println("Aircraft " + airplane.getId() + " landed on lane.");
-            }
-        } finally {
-            lock.unlock();
+    public synchronized void startAirplane(Airplane airplane) {
+        if (!isOccupied() || currentAirplane.getId() == airplane.getId()) {
+            assignAirplane(airplane);
+            airplane.setStatus("Started on lane " + id);
+            System.out.println("Airplane with ID " + airplane.getId() + " started on Lane " + id);
+        } else {
+            System.out.println("Lane " + id + " is currently occupied by another airplane.");
+        }
+    }
+
+    public synchronized void landAirplane(Airplane airplane) {
+        if (!isOccupied() || currentAirplane.getId() == airplane.getId()) {
+            assignAirplane(airplane);
+            airplane.setStatus("Landed on lane " + id);
+            System.out.println("Airplane with ID " + airplane.getId() + " landed on Lane " + id);
+        } else {
+            System.out.println("Lane " + id + " is currently occupied by another airplane.");
         }
     }
 }

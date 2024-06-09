@@ -1,5 +1,3 @@
-package src.airport.simulation;
-
 import src.airport.model.Airplane;
 import src.airport.model.Airport;
 import src.airport.model.Lane;

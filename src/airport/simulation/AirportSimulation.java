@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AirportSimulation {
     public static void main(String[] args) {
-        Airport airport = new Airport(3, 5); // 3 lanes, 5 controllers
+        Airport airport = new Airport(5, 5); // 3 lanes, 5 controllers
 
         List<Airplane> airplanes = new ArrayList<>();
         for (int i = 0; i < 10; i++) { // 10 airplanes
@@ -31,13 +31,13 @@ public class AirportSimulation {
                 e.printStackTrace();
             }
 
-            // Start the airplane
+            // Example: Start the airplane
             for (Lane lane : airport.getLanes()) {
                 lane.startAirplane(airplane);
                 airplane.setStatus("Started on lane " + lane.hashCode());
             }
 
-            //  Land the airplane
+            // Example: Land the airplane
             for (Lane lane : airport.getLanes()) {
                 lane.landAirplane(airplane);
                 airplane.setStatus("Landed on lane " + lane.hashCode());

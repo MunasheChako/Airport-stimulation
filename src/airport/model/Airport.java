@@ -27,4 +27,19 @@ public class Airport {
     public List<AirTrafficController> getControllers() {
         return controllers;
     }
+
+    public Lane getRandomAvailableLane() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getRandomAvailableLane'");
+    }
+
+    public void addToLandingQueue(Airplane airplane) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addToLandingQueue'");
+    }
+
+    public boolean isLaneAvailable() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isLaneAvailable'");
+    }
 }

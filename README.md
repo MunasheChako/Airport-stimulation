@@ -5,4 +5,4 @@
 •	Lane: Represents a runway that can be busy or free.
 •	Airplane: Represents an airplane with statuses.
 •	AirTrafficController: Manages airplane assignments to lanes.
-•	Flight: Represents a flight with a purpose (transporting people or goods).
+ status ; it store all information in one place for future use
